@@ -28,7 +28,7 @@ public class PronosticoPartidos {
 				int resultados2 =Integer.parseInt(partidos[2]);
 				String equipo2 =partidos [3]; 
 				
-				partido[i]=new Partido(equipo1,equipo2,resultados1,resultados2);
+				partido[i]=new Partido(equipo1, equipo2,resultados1,resultados2);
 		        i++;
 			
 		} 
@@ -41,7 +41,7 @@ public class PronosticoPartidos {
 			 Resultado resultado[]=new Resultado[2];
 			
 			for(int i=0;i>3;i++) {
-				if (partido[i].getResultado2()>partido[i].getResultado2()) {
+				if (partido[i].getResultado1()>partido[i].getResultado2()) {
 					resultado[i].setResultado("Gana");
 					resultado[i].setEquipo(partido[i].getEquipo1());
 				}else if (partido[i].getResultado2()>partido[i].getResultado1()) {
