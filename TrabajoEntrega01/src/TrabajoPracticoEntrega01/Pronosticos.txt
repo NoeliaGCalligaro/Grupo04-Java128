@@ -1,3 +1,6 @@
-Gana Argentina 
-Gana Alemania
-Empate
+Jugador1 Gana Argentina 
+Jugador1 Gana Alemania
+Jugador1 Empate
+Jugador2 Gana Uruguay
+Jugador2 Gana Chile
+Jugador2 Gana Paraguay

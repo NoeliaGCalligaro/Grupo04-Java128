@@ -2,91 +2,142 @@
 package TrabajoPracticoEntrega01;
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 
 public class PronosticoPartidos {
 
+	public static List <Partido> partidos=new ArrayList<Partido>();
+	public static List <Resultado> resultados=new ArrayList<Resultado>();
+	public static List <Pronostico> pronosticos=new ArrayList<Pronostico>();
+	public static List <Jugador> jugadores=new ArrayList<Jugador>();
+	static int puntos1=0;
+	static int puntos2=0;
 	
 
 	public static void main(String[] args) {
 		
-		 Partido partido[]=new Partido[2];
-		 int puntos=0;
+		//Leer-Cargar los datos de los partidos en el objeto partido
 		
-		Path rutaResultados = Paths.get("/home/noelia/eclipse-workspace/EjerciciosJava/src/TrabajoPracticoEntrega01/Resultados.txt");
-		Path rutaPronosticos = Paths.get("/home/noelia/eclipse-workspace/EjerciciosJava/src/TrabajoPracticoEntrega01/Pronosticos.txt");
+		cargarPartidos();
+		
+		
+		//Asignamos en el objeto resultado los resultados de los partidos 
+		
+		cargarResultados();
+		
+		
+		
+		//leemos-cargamos los pronosticos de los jugadores en el objeto pronostico 
+		
+		
+		leerPronosticos();
+		
+	
+		
+		
 
+			
+		//leer / cargar a los jugadores en la clase jugador 
+			
+		//comparamos los resultados con los pronosticos por cada jugador
+		//mostramos el puntaje
+			
+		//comparar los puntajes de los jugadores para que los muestre ordenados.
+		
+		
+		//compararResultados();
+
+	}
+
+
+	
+
+
+	private static void leerPronosticos() {
+		Path rutaPronosticos = Paths.get("src\\TrabajoPracticoEntrega01\\Pronosticos.txt");
+
+		
+		
 		try {
-			
-			 
-			
-			for(String lineaArchivo:Files.readAllLines(rutaResultados)) { 
-				
-				String partidos[] = lineaArchivo.split(" ");
-				int i=0;
-				String equipo1 =partidos [0]; 
-			    int resultados1 =Integer.parseInt(partidos[1]); 
-				int resultados2 =Integer.parseInt(partidos[2]);
-				String equipo2 =partidos [3]; 
-				
-				partido[i]=new Partido(equipo1, equipo2,resultados1,resultados2);
-		        i++;
-			
-		} 
-		}catch (IOException e) {
-			
-			e.printStackTrace();
+	         for(String linea : Files.readAllLines(rutaPronosticos)) { 
+	        	    String jugador =linea.split(" ")[0]; 
+	        	    String equipo =linea.split(" ")[1]; 
+					String resultado =linea.split(" ")[2]; 
+					Pronostico pronostico=new Pronostico(equipo, resultado, jugador);
+					pronosticos.add(pronostico);
+					
+					
+					
+					}
+
+	         }catch (IOException e) {
+	 			
+	 			e.printStackTrace();
+	 		}
+	 	
+		pronosticos.forEach(System.out::println); 
+
+		
+	}
+
+
+	private static void cargarResultados() {	
+		
+	Iterator ite= partidos.iterator();
+	while(ite.hasNext()) {
+		Partido partido=(Partido) ite.next();
+		if(partido.getResultado1()>partido.getResultado2()) {
+			Iterator<Resultado> iter= resultados.iterator();
+			while(iter.hasNext()) {
+				Resultado resultado=(Resultado) ite.next();
+				resultado.setResultado("Gana");
+				resultado.setEquipo(partido.getEquipo1());
+			     
+		}
+	}else if (partido.getResultado2()>partido.getResultado1()) {
+		Iterator iter= resultados.iterator();
+		while(iter.hasNext()) {
+			Resultado resultado=(Resultado) ite.next();
+			resultado.setResultado("Gana");
+			resultado.setEquipo(partido.getEquipo2());
+		     
+	}
+}else if(partido.getResultado1()==partido.getResultado2()) {
+	Iterator<Resultado> iter= resultados.iterator();
+	while(iter.hasNext()) {
+		Resultado resultado=(Resultado) ite.next();
+		resultado.setResultado("Empate");
+		resultado.setEquipo(null);
+	     
+}
+}
 		}
 		
-			
-			 Resultado resultado[]=new Resultado[2];
-			
-			for(int i=0;i>3;i++) {
-				if (partido[i].getResultado1()>partido[i].getResultado2()) {
-					resultado[i].setResultado("Gana");
-					resultado[i].setEquipo(partido[i].getEquipo1());
-				}else if (partido[i].getResultado2()>partido[i].getResultado1()) {
-					resultado[i].setResultado("Gana");
-					resultado[i].setEquipo(partido[i].getEquipo2());
-				}else if (partido[i].getResultado2()==partido[i].getResultado1()) {
-					resultado[i].setResultado("Empate");
-					
-				}
-				}
-					
-			Pronostico pronostico[]=new Pronostico[2];
-				
-			try {
-				
-				for(String lineaArchivo:Files.readAllLines(rutaPronosticos)) { 
-					
-					String pronosticos[] = lineaArchivo.split(" ");
-					int i=0;
-					String equipo =pronosticos [0]; 
-				    String resultado1 =pronosticos[1];
-					pronostico[i]=new Pronostico(equipo,resultado1);
-			        i++;
-				}
-				
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
-			
-		
-		for(int i=0; i<3;i++) {
-			if((resultado[i].getResultado()==pronostico[i].getResultado()) && (resultado[i].getEquipo()==pronostico[i].getEquipo())){
-				puntos+=1;
-			}
-		}
-			
-		
-			
-		System.out.print("Su puntaje es: "+ puntos); 
-	
-
-	
-	
-			
+	}
 
 
-	}}
+	private static void cargarPartidos() {
+		Path rutaResultados = Paths.get("src\\TrabajoPracticoEntrega01\\Resultados.txt");
+            try {
+		         for(String linea : Files.readAllLines(rutaResultados)) { 
+		        	 String equipo1 =linea.split(" ")[0]; 
+					    int resultados1 =Integer.parseInt(linea.split(" ")[1]); 
+						int resultados2 =Integer.parseInt(linea.split(" ")[2]);
+						String equipo2 =linea.split(" ")[3]; 
+						Partido partido =new Partido(equipo1, equipo2,resultados1,resultados2);
+						partidos.add(partido);
+						
+						}
+
+		         }catch (IOException e) {
+		 			
+		 			e.printStackTrace();
+		 		}
+		 		
+    
+	}
+	
+}
