@@ -38,6 +38,10 @@ public class Pronostico {
 
 	}
 
+	@Override
+	public String toString() {
+		return this.getJugador()+ " "+ this.getResultado() + " "+ " " +this.getEquipo();
+	}
 	
 
 }

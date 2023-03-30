@@ -57,14 +57,14 @@ public class PronosticoPartidos {
 
 
 	private static void leerPronosticos() throws FileNotFoundException {
-		String rutaPronosticos = "/home/noelia/GitHub/Grupo04-Java128/TrabajoEntrega01/src/TrabajoPracticoEntrega01/Pronosticos.txt";
+		String rutaPronosticos = "src/TrabajoPracticoEntrega01/Pronosticos.txt";
 		  
 			
 			File file = new File(rutaPronosticos);
 			  try (Scanner scanner = new Scanner(file)) {            
 				  while (scanner.hasNext()) {
                 String linea = scanner.nextLine();
-                System.out.println(linea);
+               
                 String jugador =linea.split(" ")[0]; 
         	    String equipo =linea.split(" ")[1]; 
         	 
@@ -124,7 +124,7 @@ public class PronosticoPartidos {
 
 	private static void cargarPartidos() throws FileNotFoundException {
 		
-		String rutaResultados= "/home/noelia/GitHub/Grupo04-Java128/TrabajoEntrega01/src/TrabajoPracticoEntrega01/Resultados.txt";
+		String rutaResultados= "src/TrabajoPracticoEntrega01/Resultados.txt";
 		
 
 		File file = new File(rutaResultados);
@@ -133,7 +133,7 @@ public class PronosticoPartidos {
 			   String linea = scanner.nextLine();
 			   String equipo1 =linea.split(" ")[0]; 
 			    int resultados1 =Integer.parseInt(linea.split(" ")[1]); 
-			    System.out.println(linea);
+			    
 				int resultados2 =Integer.parseInt(linea.split(" ")[2]);
 				String equipo2 =linea.split(" ")[3]; 
 				Partido partido =new Partido(equipo1, equipo2,resultados1,resultados2);
