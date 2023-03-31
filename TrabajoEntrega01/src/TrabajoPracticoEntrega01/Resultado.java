@@ -27,6 +27,10 @@ public void setEquipo(String equipo) {
 
 }
 
+@Override
+public String toString() {
+	return  this.getResultado() + " " +this.getEquipo();
+}
 
 
 }

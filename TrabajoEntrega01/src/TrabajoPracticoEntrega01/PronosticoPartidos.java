@@ -15,8 +15,8 @@ public class PronosticoPartidos {
 	public static List <Resultado> resultados=new ArrayList<Resultado>();
 	public static List <Pronostico> pronosticos=new ArrayList<Pronostico>();
 	public static List <Jugador> jugadores=new ArrayList<Jugador>();
-	static int puntos1=0;
-	static int puntos2=0;
+	static int puntos1;
+	static int puntos2;
 	
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -30,7 +30,7 @@ public class PronosticoPartidos {
 		
 		cargarResultados();
 		
-		
+		resultados.forEach(System.out::println); 
 		
 		//leemos-cargamos los pronosticos de los jugadores en el objeto pronostico 
 		
@@ -48,12 +48,68 @@ public class PronosticoPartidos {
 		//mostramos el puntaje
 			
 			//comparar los puntajes de los jugadores para que los muestre ordenados.
-		//compararResultados();
+		compararResultados();
+		
+		
 
 	}
 
 
 	
+
+
+	private static void compararResultados() {
+		
+		
+		Iterator<Pronostico> iter= pronosticos.iterator();
+		 int i=0;
+	    while(iter.hasNext()) {
+        Pronostico pronostico= iter.next();
+       
+        String resultado=resultados.get(i).getResultado();
+        System.out.println(resultado);
+        String equipo=resultados.get(i).getEquipo();
+        System.out.println(equipo);
+        i++;
+        if(pronostico.getJugador()=="Jugador1"){
+          
+        	if((resultado==pronostico.getResultado())&&(equipo==pronostico.getEquipo())) {
+        		 puntos1 +=1;
+        	}else  if(pronostico.getJugador()=="Jugador2"){
+                
+            	if((resultados.get(i).getResultado()==pronostico.getResultado())&&(resultados.get(i).getEquipo()==pronostico.getEquipo())) {
+            		 puntos2 +=1;
+            	}
+        	
+        	
+        	
+        	}}
+      
+        }
+        	
+		/*for (int i=0;i<3;i++) {
+		  if((resultados.get(i).getResultado()==pronostico.getResultado())&&(resultados.get(i).getEquipo()==pronostico.getEquipo())) {
+				 if(pronostico.getJugador()=="Jugador1"){
+					 puntos1 +=1;
+				 }else if(pronostico.getJugador()=="Jugador2"){
+					 puntos2 +=1;
+				 }
+						
+		  }
+		}
+			
+
+			
+		}*/
+
+		System.out.println("El puntaje del jugador 1 es: "+ puntos1); 
+		System.out.println("El puntaje del jugador 2 es: "+ puntos2); 
+		
+		
+	}
+
+
+
 
 
 	private static void leerPronosticos() throws FileNotFoundException {
@@ -71,6 +127,7 @@ public class PronosticoPartidos {
 				String resultado =linea.split(" ")[2]; 
 			 Pronostico pronostico=new Pronostico(equipo, resultado, jugador);
 				pronosticos.add(pronostico);
+				
               
             }
             scanner.close();
@@ -89,37 +146,41 @@ public class PronosticoPartidos {
 
 	private static void cargarResultados() {	
 		
-	Iterator ite= partidos.iterator();
-	while(ite.hasNext()) {
-		Partido partido=(Partido) ite.next();
-		if(partido.getResultado1()>partido.getResultado2()) {
-			Iterator iter= resultados.iterator();
-			while(iter.hasNext()) {
-				Resultado resultado=(Resultado) ite.next();
-				resultado.setResultado("Gana");
-				resultado.setEquipo(partido.getEquipo1());
-			     
-		}
-	}else if (partido.getResultado2()>partido.getResultado1()) {
-		Iterator iter= resultados.iterator();
-		while(iter.hasNext()) {
-			Resultado resultado=(Resultado) ite.next();
-			resultado.setResultado("Gana");
-			resultado.setEquipo(partido.getEquipo2());
-		     
-	}
-}else if(partido.getResultado1()==partido.getResultado2()) {
-	Iterator iter= resultados.iterator();
-	while(iter.hasNext()) {
-		Resultado resultado=(Resultado) ite.next();
-		resultado.setResultado("Empate");
-		resultado.setEquipo(null);
-	     
-}
-}
-		}
 		
-	}
+		Iterator<Partido> ite= partidos.iterator();
+	while(ite.hasNext()) {
+		Partido partido= ite.next();
+		
+		if(partido.getResultado1()>partido.getResultado2()) {
+				
+				String resultado1="Gana";
+				String equipo1=partido.getEquipo1();
+				
+				Resultado resultado =new Resultado(resultado1,equipo1);
+				resultados.add(resultado);
+			     
+		     }else if (partido.getResultado2()>partido.getResultado1()) {
+	    	String resultado1="Gana";
+			String equipo1=partido.getEquipo2();
+			
+			Resultado resultado =new Resultado(resultado1,equipo1);
+			resultados.add(resultado);
+		     
+	         
+        }else if(partido.getResultado1()==partido.getResultado2()) {
+        	String resultado1="Empate";
+			String equipo1=" ";
+			
+			Resultado resultado =new Resultado(resultado1,equipo1);
+			resultados.add(resultado);
+	     
+             }
+        }
+		}
+	
+	
+ 
+	
 
 
 	private static void cargarPartidos() throws FileNotFoundException {
@@ -145,7 +206,7 @@ public class PronosticoPartidos {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+        partidos.forEach(System.out::println); 
 		 		
     
 	}
