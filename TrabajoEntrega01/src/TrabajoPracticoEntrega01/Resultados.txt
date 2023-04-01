@@ -1,3 +1,3 @@
 Argentina 2 1 Uruguay
 Alemania 0 2 Chile
-Brasil 1 2 Paraguay
+Brasil 1 1 Paraguay

@@ -1,6 +1,6 @@
-Jugador1 Gana Argentina 
-Jugador1 Gana Alemania
-Jugador1 Gana Paraguay
-Jugador2 Gana Uruguay
-Jugador2 Gana Chile
-Jugador2 Gana Paraguay
+Noelia Gana Argentina
+Noelia Gana Alemania
+Noelia Gana Paraguay
+Emilano Gana Uruguay
+Emiliano Gana Chile
+Emiliano Empate   
