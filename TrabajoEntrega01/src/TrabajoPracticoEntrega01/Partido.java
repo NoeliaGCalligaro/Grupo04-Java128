@@ -40,7 +40,7 @@ public class Partido {
 	
 	@Override
 	public String toString() {
-		return this.getEquipo1()+ this.getEquipo2() +this.getResultado1()+this.getResultado2() ;
+		return this.getEquipo1()+ " " + this.getResultado1()+ " - " +this.getResultado2() + " " +this.getEquipo2() ;
 	}
 	
 

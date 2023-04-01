@@ -14,9 +14,11 @@ public class PronosticoPartidos {
 	public static List <Partido> partidos=new ArrayList<Partido>();
 	public static List <Resultado> resultados=new ArrayList<Resultado>();
 	public static List <Pronostico> pronosticos=new ArrayList<Pronostico>();
+	public static List <Pronostico> pronosticos1=new ArrayList<Pronostico>();
+	public static List <Pronostico> pronosticos2=new ArrayList<Pronostico>();
 	public static List <Jugador> jugadores=new ArrayList<Jugador>();
-	static int puntos1;
-	static int puntos2;
+
+
 	
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -30,17 +32,16 @@ public class PronosticoPartidos {
 		
 		cargarResultados();
 		
-		resultados.forEach(System.out::println); 
+		
 		
 		//leemos-cargamos los pronosticos de los jugadores en el objeto pronostico 
 		
 		
 		leerPronosticos();
 		
-	
 		
+		separarJugadores();
 		
-
 			
 		//leer / cargar a los jugadores en la clase jugador 
 			
@@ -48,7 +49,8 @@ public class PronosticoPartidos {
 		//mostramos el puntaje
 			
 			//comparar los puntajes de los jugadores para que los muestre ordenados.
-		compararResultados();
+		compararResultados(pronosticos1);
+		compararResultados(pronosticos2);
 		
 		
 
@@ -58,58 +60,95 @@ public class PronosticoPartidos {
 	
 
 
-	private static void compararResultados() {
+	
+
+
+
+
+
+	private static void compararResultados(List<Pronostico> pronosticos) {
 		
-		
-		Iterator<Pronostico> iter= pronosticos.iterator();
+		 int puntos=0;
 		 int i=0;
+		Iterator<Pronostico> iter= pronosticos.iterator();
+		 
+		 
 	    while(iter.hasNext()) {
         Pronostico pronostico= iter.next();
        
         String resultado=resultados.get(i).getResultado();
-        System.out.println(resultado);
+       
         String equipo=resultados.get(i).getEquipo();
-        System.out.println(equipo);
-        i++;
-        if(pronostico.getJugador()=="Jugador1"){
-          
-        	if((resultado==pronostico.getResultado())&&(equipo==pronostico.getEquipo())) {
-        		 puntos1 +=1;
-        	}else  if(pronostico.getJugador()=="Jugador2"){
-                
-            	if((resultados.get(i).getResultado()==pronostico.getResultado())&&(resultados.get(i).getEquipo()==pronostico.getEquipo())) {
-            		 puntos2 +=1;
-            	}
-        	
-        	
-        	
-        	}}
+        String pro=pronostico.getResultado();
+        
+        String equipopro=pronostico.getEquipo();
+        
+       
       
-        }
+       
+       
+        if(resultado.equals(pro)&& (equipo.equals(equipopro))) {
+        		 puntos++;
+        		 
+        	}
+      
+        i++;
         	
-		/*for (int i=0;i<3;i++) {
-		  if((resultados.get(i).getResultado()==pronostico.getResultado())&&(resultados.get(i).getEquipo()==pronostico.getEquipo())) {
-				 if(pronostico.getJugador()=="Jugador1"){
-					 puntos1 +=1;
-				 }else if(pronostico.getJugador()=="Jugador2"){
-					 puntos2 +=1;
-				 }
-						
-		  }
-		}
-			
+        	}
+	    
 
-			
-		}*/
-
-		System.out.println("El puntaje del jugador 1 es: "+ puntos1); 
-		System.out.println("El puntaje del jugador 2 es: "+ puntos2); 
+		System.out.println("El puntaje del jugador "+ pronosticos.get(0).getJugador()+  " es: " + puntos); 
 		
-		
+	
 	}
+      
+        
+        	
+		
+
+        
+		
+		
+	
 
 
-
+      private static void separarJugadores() {
+    	  Iterator<Pronostico> ite= pronosticos.iterator();
+    	  int i=0;
+    	
+    	  
+    	  
+    		while(ite.hasNext()) {
+    			String jugador1=pronosticos.get(i).getJugador();
+    			Pronostico pronostico= ite.next();
+    			if(i<3) {
+    				
+    					
+        				String jugador =pronosticos.get(i).getJugador();
+                	    String equipo =pronosticos.get(i).getEquipo();
+        				String resultado =pronosticos.get(i).getResultado();
+        				
+        			 Pronostico pronostico1=new Pronostico(resultado, equipo, jugador);
+        				pronosticos1.add(pronostico1);
+    				
+        				     
+        			     } else if ((i>=3)&&(i<6)) {
+         					
+        	    				String jugador =pronosticos.get(i).getJugador();
+        	            	    String equipo =pronosticos.get(i).getEquipo();
+        	    				String resultado =pronosticos.get(i).getResultado();
+        	    				
+        	    			 Pronostico pronostico2=new Pronostico(resultado, equipo, jugador);
+        	    			pronosticos2.add(pronostico2);
+    				
+    			}
+    			
+    	    					
+		
+	         
+    			i++;
+    		}
+      }
 
 
 	private static void leerPronosticos() throws FileNotFoundException {
@@ -117,6 +156,8 @@ public class PronosticoPartidos {
 		  
 			
 			File file = new File(rutaPronosticos);
+		
+			
 			  try (Scanner scanner = new Scanner(file)) {            
 				  while (scanner.hasNext()) {
                 String linea = scanner.nextLine();
@@ -125,6 +166,7 @@ public class PronosticoPartidos {
         	    String equipo =linea.split(" ")[1]; 
         	 
 				String resultado =linea.split(" ")[2]; 
+				
 			 Pronostico pronostico=new Pronostico(equipo, resultado, jugador);
 				pronosticos.add(pronostico);
 				
