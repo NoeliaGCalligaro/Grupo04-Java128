@@ -2,8 +2,6 @@
 package TrabajoPracticoEntrega01;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,8 +15,7 @@ public class PronosticoPartidos {
 	public static List <Pronostico> pronosticos1=new ArrayList<Pronostico>();
 	public static List <Pronostico> pronosticos2=new ArrayList<Pronostico>();
 	public static List <Jugador> jugadores=new ArrayList<Jugador>();
-
-
+	
 	
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -50,9 +47,10 @@ public class PronosticoPartidos {
 			
 			//comparar los puntajes de los jugadores para que los muestre ordenados.
 		System.out.println("\n\n\nPuntajes:  \n");
-		compararResultados(pronosticos1);
-		compararResultados(pronosticos2);
-		
+		puntos punto1 =new puntos();
+		System.out.println(pronosticos1.get(0).getJugador()+ ": "+punto1.compararResultados(pronosticos1,resultados));
+		System.out.println(pronosticos2.get(0).getJugador()+ ": "+punto1.compararResultados(pronosticos2,resultados));
+    	
 		
 
 	}
@@ -60,56 +58,6 @@ public class PronosticoPartidos {
 
 	
 
-
-	
-
-
-
-
-
-	private static void compararResultados(List<Pronostico> pronosticos) {
-		
-		 int puntos=0;
-		 int i=0;
-		Iterator<Pronostico> iter= pronosticos.iterator();
-		 
-		 
-	    while(iter.hasNext()) {
-        Pronostico pronostico= iter.next();
-       
-        String resultado=resultados.get(i).getResultado();
-       
-        String equipo=resultados.get(i).getEquipo();
-        String pro=pronostico.getResultado();
-        
-        String equipopro=pronostico.getEquipo();
-        
-       
-      
-       
-       
-        if(resultado.equals(pro)&& (equipo.equals(equipopro))) {
-        		 puntos++;
-        		 
-        	}
-      
-        i++;
-        	
-        	}
-	    
-
-		System.out.println("El puntaje del jugador "+ pronosticos.get(0).getJugador()+  " es: " + puntos); 
-		
-	
-	}
-      
-        
-        	
-		
-
-        
-		
-		
 	
 
 
@@ -146,6 +94,10 @@ public class PronosticoPartidos {
 	         
     			i++;
     		}
+    	
+    	
+    	
+		
       }
 
 

@@ -1,4 +1,7 @@
 package TrabajoPracticoEntrega01;
+
+
+
 //Cambio para ver en eclipse 
 public class Pronostico {
 	private String resultado;
@@ -43,5 +46,6 @@ public class Pronostico {
 		return this.getJugador()+ ": "+ this.getResultado() + " "+this.getEquipo();
 	}
 	
-
+	
+	
 }
