@@ -1,0 +1,5 @@
+1;Mexico;Argentina;0;2
+1;Polonia;Mexico;0;0
+1;Argentina;Polonia;1;0
+2;Mexico;Brasil;0;0
+2;Argentina;Mexico;0;1
