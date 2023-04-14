@@ -1,5 +1,5 @@
 package Clases;
-
+//prueba
 public class Partido {
 	
 	private String participante1;
