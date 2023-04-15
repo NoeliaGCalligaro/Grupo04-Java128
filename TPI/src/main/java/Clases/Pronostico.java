@@ -6,6 +6,7 @@ public class Pronostico {
 	private String participante2;
 	private int ronda;
 	private String ganador;
+	private Boolean acierto = false;
 	
 	public Pronostico(int ronda, String participante1, String participante2, String ganador) {
 		this.participante1 = participante1;
@@ -36,6 +37,12 @@ public class Pronostico {
 	}
 	public void setGanador(String ganador) {
 		this.ganador = ganador;
+	}
+	public Boolean getAcierto() {
+		return acierto;
+	}
+	public void setAcierto() {
+		this.acierto = true;
 	}
 	
 	

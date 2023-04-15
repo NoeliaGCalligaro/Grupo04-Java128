@@ -46,7 +46,9 @@ public class Partido {
 	public String getGanador() {
 		return ganador;
 	}
-
 	
+	public String encuentro() {
+		return "Partido: " + getParticipante1() + " - " + getParticipante2() + " |";
+	}
 
 }
