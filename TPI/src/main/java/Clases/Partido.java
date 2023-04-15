@@ -1,5 +1,5 @@
 package Clases;
-//pruebas
+
 public class Partido {
 	
 	private String participante1;
@@ -15,7 +15,6 @@ public class Partido {
 		this.golesPar2=gol2;
 		this.ganador=this.quienGano();
 	}
-	
 	
 	public String quienGano() {
 		if (this.golesPar1>this.golesPar2) {
@@ -50,5 +49,4 @@ public class Partido {
 	public String encuentro() {
 		return "Partido: " + getParticipante1() + " - " + getParticipante2() + " |";
 	}
-
 }
