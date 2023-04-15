@@ -1,3 +1,0 @@
-Mexico;Argentina;Argentina
-Polonia;Mexico;Empate
-Argentina;Polonia;Polonia

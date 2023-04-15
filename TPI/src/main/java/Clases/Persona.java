@@ -42,8 +42,8 @@ public class Persona {
 		return this.pronostico;
 	}
 	
-	public void acerto(int ronda) {
-		puntaje.replace(ronda, puntaje.get(ronda)+1);
+	public void acerto(int ronda, int punto) {
+		puntaje.replace(ronda, puntaje.get(ronda) + punto);
 	}
 	
 	public int getPuntajeTotal() {
@@ -53,5 +53,4 @@ public class Persona {
 		}
 		return cont;
 	}
-
 }

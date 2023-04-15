@@ -59,7 +59,7 @@ class PersonaTest {
 						//me fijo si es el partido correcto
 						if (par.getParticipante1().equals(pro.getParticipante1()) && par.getParticipante2().equals(pro.getParticipante2())) {
 							if (par.getGanador().equalsIgnoreCase(pro.getGanador())) {
-    							persona.acerto(ron.getNumRonda());
+    							persona.acerto(ron.getNumRonda(), 1);
     						}
 						}
 						
