@@ -15,15 +15,15 @@ import java.io.IOException;
 public class TPIMain {
 
     public static void main(String[] args) {
-    	String resultados = "src\\main\\java\\Archivos\\partidos.txt";
-    	String pronosticos = "src\\main\\java\\Archivos\\pronostico.txt"; 
+    	String resultados = "src/main/java/Archivos/partidos.txt";
+    	String pronosticos = "src/main/java/Archivos/pronostico.txt"; 
     	int puntosXVictoria = 1;
     	int puntosXEmpate = 2;
     	int puntosXRonda = 3;
     	int puntosXFase = 3;
     	
     	List<Ronda> rondas = cargaResultados(resultados);
-    	List<Persona> jugadores = cargaJugadores(pronosticos);
+    	List<Persona> jugadores = cargaJugadores();
     	cargaPuntos(rondas, jugadores, puntosXVictoria, puntosXEmpate);
     	puntosExtra(rondas, jugadores, puntosXRonda, puntosXFase);
     	print(rondas, jugadores);
@@ -69,7 +69,50 @@ public class TPIMain {
     	return rondas;
     }
     
-    public static List<Persona> cargaJugadores(String ruta) {
+    
+    public static List<Persona> cargaJugadores() {
+        try {  
+            Class.forName("com.mysql.cj.jdbc.Driver"); 
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/mydbJava","root","");
+
+            Statement stmt=con.createStatement();  
+            System.out.println("Conectado a la base de datos"); 
+
+            List<Persona> personas = new ArrayList<Persona>();
+            int codPersona = 0;
+            ResultSet rs=stmt.executeQuery("select * from Pronosticos ");  
+            ResultSetMetaData rsmd=rs.getMetaData();
+            while (rs.next()) {
+                System.out.println(rs.getInt(1)+"  "+rs.getString(2));
+                System.out.println(rsmd.getColumnCount());
+
+                if (codPersona != rs.getInt(1)) {
+                    Persona persona = new Persona(rs.getInt(1), rs.getString(2));
+                    personas.add(persona);
+                    codPersona = rs.getInt(1);
+                }
+            }
+
+            for (Persona pers : personas) {
+                rs.beforeFirst(); 
+                while (rs.next()) {
+                    if (rs.getInt(1) == pers.getCodigo()) {
+                        Pronostico pronostico = new Pronostico(rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6));
+                        pers.getPronostico().add(pronostico);
+                    }
+                }
+            }
+
+            con.close();  
+            return personas;
+        } catch(Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    
+  /*  public static List<Persona> cargaJugadores(String ruta) {
     	//insertar pronosticos
     	//se asume que los pronosticos vienen ordenados por numero de persona
     	List<Persona> personas = new ArrayList<Persona>();
@@ -104,7 +147,7 @@ public class TPIMain {
     		e.printStackTrace();
     	}
     	return personas;
-    }
+    }*/
     
     public static void chequeoCantCampos(String[] partes, int cantEsperada, String linea) throws NoCoincideCantidadCamposException{
     	if (partes.length!=cantEsperada) {

@@ -1,6 +1,10 @@
 1;Juan;1;Mexico;Argentina;Argentina
 1;Juan;1;Polonia;Mexico;Empate
 1;Juan;1;Argentina;Polonia;Argentina
+1;Juan;2;Mexico;Brasil;Empate
+1;Juan;2;Argentina;Mexico;Argentina
+2;John;1;Mexico;Argentina;Argentina
+2;John;1;Polonia;Mexico;Empate
 2;John;1;Argentina;Polonia;Polonia
 2;John;2;Mexico;Brasil;Brasil
 2;John;2;Argentina;Mexico;Empate
