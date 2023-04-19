@@ -2,6 +2,11 @@ package Clases;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -23,7 +28,7 @@ public class TPIMain {
     	int puntosXFase = 3;
     	
     	List<Ronda> rondas = cargaResultados(resultados);
-    	List<Persona> jugadores = cargaJugadores();
+    	List<Persona> jugadores = cargaJugadores(pronosticos);
     	cargaPuntos(rondas, jugadores, puntosXVictoria, puntosXEmpate);
     	puntosExtra(rondas, jugadores, puntosXRonda, puntosXFase);
     	print(rondas, jugadores);
@@ -70,49 +75,49 @@ public class TPIMain {
     }
     
     
-    public static List<Persona> cargaJugadores() {
-        try {  
-            Class.forName("com.mysql.cj.jdbc.Driver"); 
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/mydbJava","root","");
-
-            Statement stmt=con.createStatement();  
-            System.out.println("Conectado a la base de datos"); 
-
-            List<Persona> personas = new ArrayList<Persona>();
-            int codPersona = 0;
-            ResultSet rs=stmt.executeQuery("select * from Pronosticos ");  
-            ResultSetMetaData rsmd=rs.getMetaData();
-            while (rs.next()) {
-                System.out.println(rs.getInt(1)+"  "+rs.getString(2));
-                System.out.println(rsmd.getColumnCount());
-
-                if (codPersona != rs.getInt(1)) {
-                    Persona persona = new Persona(rs.getInt(1), rs.getString(2));
-                    personas.add(persona);
-                    codPersona = rs.getInt(1);
-                }
-            }
-
-            for (Persona pers : personas) {
-                rs.beforeFirst(); 
-                while (rs.next()) {
-                    if (rs.getInt(1) == pers.getCodigo()) {
-                        Pronostico pronostico = new Pronostico(rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6));
-                        pers.getPronostico().add(pronostico);
-                    }
-                }
-            }
-
-            con.close();  
-            return personas;
-        } catch(Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
+//    public static List<Persona> cargaJugadores() {
+//        try {  
+//            Class.forName("com.mysql.cj.jdbc.Driver"); 
+//            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/mydbJava","root","");
+//
+//            Statement stmt=con.createStatement();  
+//            System.out.println("Conectado a la base de datos"); 
+//
+//            List<Persona> personas = new ArrayList<Persona>();
+//            int codPersona = 0;
+//            ResultSet rs=stmt.executeQuery("select * from Pronosticos ");  
+//            ResultSetMetaData rsmd=rs.getMetaData();
+//            while (rs.next()) {
+//                System.out.println(rs.getInt(1)+"  "+rs.getString(2));
+//                System.out.println(rsmd.getColumnCount());
+//
+//                if (codPersona != rs.getInt(1)) {
+//                    Persona persona = new Persona(rs.getInt(1), rs.getString(2));
+//                    personas.add(persona);
+//                    codPersona = rs.getInt(1);
+//                }
+//            }
+//
+//            for (Persona pers : personas) {
+//                rs.beforeFirst(); 
+//                while (rs.next()) {
+//                    if (rs.getInt(1) == pers.getCodigo()) {
+//                        Pronostico pronostico = new Pronostico(rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6));
+//                        pers.getPronostico().add(pronostico);
+//                    }
+//                }
+//            }
+//
+//            con.close();  
+//            return personas;
+//        } catch(Exception e) {
+//            System.out.println(e);
+//            return null;
+//        }
+//    }
 
     
-  /*  public static List<Persona> cargaJugadores(String ruta) {
+    public static List<Persona> cargaJugadores(String ruta) {
     	//insertar pronosticos
     	//se asume que los pronosticos vienen ordenados por numero de persona
     	List<Persona> personas = new ArrayList<Persona>();
@@ -147,7 +152,7 @@ public class TPIMain {
     		e.printStackTrace();
     	}
     	return personas;
-    }*/
+    }
     
     public static void chequeoCantCampos(String[] partes, int cantEsperada, String linea) throws NoCoincideCantidadCamposException{
     	if (partes.length!=cantEsperada) {
@@ -177,7 +182,6 @@ public class TPIMain {
     				if (!persona.getPuntaje().containsKey(ronda.getNumRonda())) {
     					persona.getPuntaje().put(ronda.getNumRonda(), 0);
     				}
-    				
     				if (pronostico.getRonda()==ronda.getNumRonda()) {
     					for (Partido partido : ronda.getPartidos()) {
     						//me fijo si es el partido correcto
@@ -196,7 +200,6 @@ public class TPIMain {
     			}
     		}		
     	}
-    	
     }
     
     public static void puntosExtra(List<Ronda> rondas, List<Persona> personas, int valorXRonda, int valorXFase ) {
@@ -217,19 +220,25 @@ public class TPIMain {
     		for(Ronda ronda : fase1) {
     			int aciertosR = 0;
     			for(Pronostico pronostico : persona.getPronostico()) {
-    				if(ronda.getNumRonda() == pronostico.getRonda()) {
-        				if(pronostico.getAcierto() == true) {
+    				if(ronda.getNumRonda() != pronostico.getRonda()) {
+        				continue;
+    				}
+    				else {
+    					if(pronostico.getAcierto() == true) {
         					aciertosR++;
     					}
     				}
     			}
     			if(ronda.getPartidos().size() == aciertosR) {
-    				persona.acerto(ronda.getNumRonda(), valorXRonda);
-    				aciertosF++;
+    				if(!persona.getPuntaje().containsKey(777)) {
+    					persona.getPuntaje().put(777, 0);
+    				}
+    				persona.acerto(777, valorXRonda);
+					aciertosF++;
     			}
     		}
     		if(aciertosF == fase1.size()) {
-    			persona.acerto(aciertosF, valorXFase);
+    			persona.acerto(777, valorXFase);
     		}
     	}
     	
@@ -238,19 +247,25 @@ public class TPIMain {
     		for(Ronda ronda : fase2) {
     			int aciertosR = 0;
     			for(Pronostico pronostico : persona.getPronostico()) {
-    				if(ronda.getNumRonda() == pronostico.getRonda()) {
-        				if(pronostico.getAcierto() == true) {
+    				if(ronda.getNumRonda() != pronostico.getRonda()) {
+        				continue;
+    				}
+    				else {
+    					if(pronostico.getAcierto() == true) {
         					aciertosR++;
     					}
     				}
     			}
     			if(ronda.getPartidos().size() == aciertosR) {
-    				persona.acerto(ronda.getNumRonda(), valorXRonda);
-    				aciertosF++;
+    				if(!persona.getPuntaje().containsKey(777)) {
+    					persona.getPuntaje().put(777, 0);
+    				}
+    				persona.acerto(777, valorXRonda);
+					aciertosF++;
     			}
     		}
     		if(aciertosF == fase2.size()) {
-    			persona.acerto(aciertosF, valorXFase);
+    			persona.acerto(777, valorXFase);
     		}
     	}	
     }
@@ -276,7 +291,12 @@ public class TPIMain {
     			System.out.println("    -El jugador "+persona.getCodigo()+" ("+persona.getNombre()+") obtuvo "+persona.getPuntaje(ronda.getNumRonda())+" puntos.");
     		}
     	}
-    	
+    	System.out.println("\n" + "Puntos Extra:");
+    	for(Persona persona: personas) {
+    		if(persona.getPuntaje().containsKey(777)) {
+    			System.out.println("    -El jugador "+persona.getCodigo()+" ("+persona.getNombre()+") obtuvo "+persona.getPuntaje(777)+" puntos.");
+    		}
+    	}
     	System.out.println("");
     	System.out.println("Puntuacion total:");
     	for(Persona persona : personas) {
