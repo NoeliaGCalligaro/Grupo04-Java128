@@ -1,5 +1,14 @@
 1;Mexico;Argentina;0;2
-1;Polonia;Mexico;0;0
-1;Argentina;Polonia;1;0
-2;Mexico;Brasil;0;0
-2;Argentina;Mexico;0;1
+1;Polonia;Brasil;0;0
+1;Paises Bajos;Australia;1;0
+1;Alemania;Japon;0;2
+1;Reino Unido;Canada;0;0
+1;Estados Unidos;Italia;1;0
+1;España;Rusia;1;0
+2;Mexico;Brasil;0;1
+2;Argentina;Rusia;2;0
+2;España;Paises Bajos;0;3
+2;Alemania;Polonia;0;1
+3;Argentina;Brasil;1;0
+3;Paises Bajos;Polonia;0;1
+4;Argentina;Polonia;2;1

@@ -1,10 +1,42 @@
-1;Juan;1;Mexico;Argentina;Argentina
-1;Juan;1;Polonia;Mexico;Empate
-1;Juan;1;Argentina;Polonia;Argentina
-1;Juan;2;Mexico;Brasil;Empate
-1;Juan;2;Argentina;Mexico;Mexico
-2;John;1;Mexico;Argentina;Argentina
-2;John;1;Polonia;Mexico;Empate
-2;John;1;Argentina;Polonia;Polonia
-2;John;2;Mexico;Brasil;Brasil
-2;John;2;Argentina;Mexico;Empate
+1;1;Juan;Mexico;Argentina;1;Argentina
+2;1;Juan;Polonia;Brasil;1;Empate
+3;1;Juan;Paises Bajos;Australia;1;Paises Bajos
+4;1;Juan;Alemania;Japon;1;Japon
+5;1;Juan;Reino Unido;Canada;1;Empate
+6;1;Juan;Estados Unidos;Italia;1;Estados Unidos
+7;1;Juan;España;Rusia;1;España
+8;1;Juan;Mexico;Brasi;2;Brasil
+9;1;Juan;Argentina;Rusia;2;Argentina
+10;1;Juan;España;Paises Bajos;2;Paises Bajos
+11;1;Juan;Alemania;Polonia;2;Polonia
+12;1;Juan;Argentina;Brasil;3;Argentina
+13;1;Juan;Paises Bajos;Polonia;3;Polonia
+14;1;Juan;Argentina;Polonia;4;Argentina
+15;2;John;Mexico;Argentina;1;Mexico
+16;2;John;Polonia;Brasil;1;Brasil
+17;2;John;Paises Bajos;Australia;1;Australia
+18;2;John;Alemania;Japon;1;Alemania
+19;2;John;Reino Unido;Canada;1;Canada
+20;2;John;Estados Unidos;Italia;1;Italia
+21;2;John;España;Rusia;1;Rusia
+22;2;John;Mexico;Brasi;2;Mexico
+23;2;John;Argentina;Rusia;2;Rusia
+24;2;John;España;Paises Bajos;2;España
+25;2;John;Alemania;Polonia;2;Alemania
+26;2;John;Argentina;Brasil;3;Brasil
+27;2;John;Paises Bajos;Polonia;3;Paises Bajos
+28;2;John;Argentina;Polonia;4;Polonia
+29;3;Noelia;Mexico;Argentina;1;Mexico
+30;3;Noelia;Polonia;Brasil;1;Brasil
+31;3;Noelia;Paises Bajos;Australia;1;Paises Bajos
+32;3;Noelia;Alemania;Japon;1;Alemania
+33;3;Noelia;Reino Unido;Canada;1;Reino Unido
+34;3;Noelia;Estados Unidos;Italia;1;Estados Unidos
+35;3;Noelia;España;Rusia;1;España
+36;3;Noelia;Mexico;Brasi;2;Mexico
+37;3;Noelia;Argentina;Rusia;2;Rusia
+38;3;Noelia;España;Paises Bajos;2;España
+39;3;Noelia;Alemania;Polonia;2;Alemania
+40;3;Noelia;Argentina;Brasil;3;Argentina
+41;3;Noelia;Paises Bajos;Polonia;3;Polonia
+42;3;Noelia;Argentina;Polonia;4;Argentina
