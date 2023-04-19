@@ -30,7 +30,8 @@ public class TPIMain {
     	int puntosXFase = 3;
     	
     	List<Ronda> rondas = cargaResultados(resultados);
-    	List<Persona> jugadores = cargaJugadores(pronosticos);
+    	//el programa puede leer del archivo con cargaJugadores(pronosticos), o de la BD con cargaJugadores()
+    	List<Persona> jugadores = cargaJugadores();
     	cargaPuntos(rondas, jugadores, puntosXVictoria, puntosXEmpate);
     	puntosExtra(rondas, jugadores, puntosXRonda, puntosXFase);
     	print(rondas, jugadores);
@@ -93,24 +94,25 @@ public class TPIMain {
 
             List<Persona> personas = new ArrayList<Persona>();
             int codPersona = 0;
-            ResultSet rs=stmt.executeQuery("select * from Pronosticos ");  
+            ResultSet rs=stmt.executeQuery("select * from Pronosticos");  
             ResultSetMetaData rsmd=rs.getMetaData();
             while (rs.next()) {
-                System.out.println(rs.getInt(1)+"  "+rs.getString(2));
+                System.out.println(rs.getInt(2)+"  "+rs.getString(3));
                 System.out.println(rsmd.getColumnCount());
 
-                if (codPersona != rs.getInt(1)) {
-                    Persona persona = new Persona(rs.getInt(1), rs.getString(2));
+                if (codPersona != rs.getInt(2)) {
+                    Persona persona = new Persona(rs.getInt(2), rs.getString(3));
                     personas.add(persona);
-                    codPersona = rs.getInt(1);
+                    codPersona = rs.getInt(2);
                 }
             }
 
             for (Persona pers : personas) {
-                rs.beforeFirst(); 
+            	//usando rs.beforeFirst() me tira una excepcion, porque el puntero no puede ir para atras. Lo vuelvo a crear
+            	rs=stmt.executeQuery("select * from Pronosticos");
                 while (rs.next()) {
                     if (rs.getInt(1) == pers.getCodigo()) {
-                        Pronostico pronostico = new Pronostico(rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6));
+                        Pronostico pronostico = new Pronostico(rs.getInt(6), rs.getString(4), rs.getString(5), rs.getString(7));
                         pers.getPronostico().add(pronostico);
                     }
                 }
