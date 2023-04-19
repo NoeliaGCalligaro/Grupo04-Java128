@@ -5,14 +5,11 @@ import java.nio.file.Paths;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import Excepciones.*;
@@ -119,7 +116,6 @@ public class TPIMain {
             List<Persona> personas = new ArrayList<Persona>();
             int codPersona = 0;
             ResultSet rs=stmt.executeQuery("select * from Pronosticos");  
-            ResultSetMetaData rsmd=rs.getMetaData();
             while (rs.next()) {
                 if (codPersona != rs.getInt(2)) {
                     Persona persona = new Persona(rs.getInt(2), rs.getString(3));
