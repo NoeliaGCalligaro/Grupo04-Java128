@@ -2,6 +2,11 @@ package Clases;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -72,9 +77,15 @@ public class TPIMain {
     
     public static List<Persona> cargaJugadores() {
         try {  
-            Class.forName("com.mysql.cj.jdbc.Driver"); 
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/mydbJava","root","");
+        	
+        	//para mysql:
+            //Class.forName("com.mysql.cj.jdbc.Driver"); 
+            //Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/mydbJava","root","");
 
+            //para postgresql:
+            Class.forName("org.postgresql.Driver");
+            Connection con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/TPIDB","postgres","pass1");  
+            
             Statement stmt=con.createStatement();  
             System.out.println("Conectado a la base de datos"); 
 
