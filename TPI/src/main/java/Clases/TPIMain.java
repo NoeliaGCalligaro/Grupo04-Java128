@@ -135,7 +135,7 @@ public class TPIMain {
             	//usando rs.beforeFirst() me tira una excepcion, porque el puntero no puede ir para atras. Lo vuelvo a crear
             	rs=stmt.executeQuery("select * from Pronosticos");
                 while (rs.next()) {
-                    if (rs.getInt(1) == pers.getCodigo()) {
+                    if (rs.getInt(2) == pers.getCodigo()) {
                         Pronostico pronostico = new Pronostico(rs.getInt(6), rs.getString(4), rs.getString(5), rs.getString(7));
                         pers.getPronostico().add(pronostico);
                     }
