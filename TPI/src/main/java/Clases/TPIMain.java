@@ -2,19 +2,13 @@ package Clases;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-<<<<<<< HEAD
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.sql.Connection;
-=======
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
->>>>>>> refs/remotes/origin/master
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -82,8 +76,7 @@ public class TPIMain {
     	return rondas;
     }
     
-    
-<<<<<<< HEAD
+
     public static List<Persona> cargaJugadores() {
         try {  
         	
@@ -130,7 +123,7 @@ public class TPIMain {
             return null;
         }
     }
-=======
+
 //    public static List<Persona> cargaJugadores() {
 //        try {  
 //            Class.forName("com.mysql.cj.jdbc.Driver"); 
@@ -171,7 +164,7 @@ public class TPIMain {
 //            return null;
 //        }
 //    }
->>>>>>> refs/remotes/origin/master
+
 
     
     public static List<Persona> cargaJugadores(String ruta) {
