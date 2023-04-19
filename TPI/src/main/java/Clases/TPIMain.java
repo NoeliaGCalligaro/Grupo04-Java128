@@ -121,9 +121,6 @@ public class TPIMain {
             ResultSet rs=stmt.executeQuery("select * from Pronosticos");  
             ResultSetMetaData rsmd=rs.getMetaData();
             while (rs.next()) {
-                System.out.println(rs.getInt(2)+"  "+rs.getString(3));
-                System.out.println(rsmd.getColumnCount());
-
                 if (codPersona != rs.getInt(2)) {
                     Persona persona = new Persona(rs.getInt(2), rs.getString(3));
                     personas.add(persona);
