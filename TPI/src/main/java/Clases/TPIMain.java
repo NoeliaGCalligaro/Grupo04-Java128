@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 
@@ -51,7 +52,7 @@ public class TPIMain {
     	
     	List<Ronda> rondas = cargaResultados(resultados);
     	//el programa puede leer del archivo con cargaJugadores(pronosticos), o de la BD con cargaJugadores()
-    	List<Persona> jugadores = cargaJugadores(url,user,password);
+    	List<Persona> jugadores = cargaJugadores(url,user,password, pronosticos);
     	cargaPuntos(rondas, jugadores, puntosXVictoria, puntosXEmpate);
     	puntosExtra(rondas, jugadores, puntosXRonda, puntosXFase);
     	print(rondas, jugadores);
@@ -97,7 +98,7 @@ public class TPIMain {
     	return rondas;
     }
     
-    public static List<Persona> cargaJugadores(String url, String user,String password) {
+    public static List<Persona> cargaJugadores(String url, String user,String password, String pronosticos) {
         try {  
         	
         	//para mysql:
@@ -111,6 +112,10 @@ public class TPIMain {
             Statement stmt=con.createStatement();  
             System.out.println("Conectado a la base de datos"); 
 
+            //esto es solo para cargar datos a la BD. No usar mas de 1 vez por equipo sin vaciar la BD!
+            //cargarTabla(pronosticos, stmt);
+            
+            
             List<Persona> personas = new ArrayList<Persona>();
             int codPersona = 0;
             ResultSet rs=stmt.executeQuery("select * from Pronosticos");  
@@ -330,5 +335,31 @@ public class TPIMain {
     	for(Persona persona : personas) {
     		System.out.println("    -El jugador "+persona.getCodigo()+" ("+persona.getNombre()+") obtuvo "+persona.getPuntajeTotal()+" puntos.");
     	}
+    }
+    
+    //Esta funcion sirve para cargar los datos de pronostico.txt a la base de datos automaticamente. Debería ejecutarse una vez en la maquina y después comentarse
+    public static void cargarTabla(String pronosticos, Statement stmt) {
+		try {
+			for (String linea : Files.readAllLines(Paths.get(pronosticos)))
+			{
+				String[] partes = linea.split(";");
+				partes[2] = "'"+partes[2]+"'";
+				partes[3] = "'"+partes[3]+"'";
+				partes[4] = "'"+partes[4]+"'";
+				partes[6] = "'"+partes[6]+"'";
+				String datosInsert = partes[0]+", "+partes[1]+", "+partes[2]+", "+partes[3]+", "+partes[4]+", "+partes[5]+", "+partes[6];
+				try {
+					int result = stmt.executeUpdate("INSERT INTO public.pronosticos(\r\n"
+							+ "	\"idPronostico\", \"codJugador\", \"nombreJugador\", participante1, participante2, ronda, ganador)\r\n"
+							+ "	VALUES ("+datosInsert+");");
+				} catch (SQLException e) {
+					System.out.println("Error en el insert");
+					e.printStackTrace();
+				}
+			}
+		} catch (IOException e) {
+			System.out.println("Error al cargar datos del archivo a la base de datos");
+			e.printStackTrace();
+		}
     }
 }
